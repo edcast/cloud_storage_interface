@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.executables = Dir["bin/*"].map &File.method(:basename)
   s.add_dependency('aws-sdk', '~> 2')
   s.add_dependency('google-cloud-storage', '~> 1.15.0')
-  s.add_dependency('activesupport', '~> 5.1.5')
+  s.add_dependency('activesupport', '>= 5.1.2')
   s.add_development_dependency('mocha', '~> 1.0.0')
   s.add_development_dependency('byebug', '~> 11.0.1')
   s.license     = 'MIT'
