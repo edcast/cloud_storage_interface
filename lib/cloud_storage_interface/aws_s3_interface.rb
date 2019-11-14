@@ -38,7 +38,7 @@ class CloudStorageInterface::AwsS3Interface
   def upload_file(bucket_name:, key:, file:, **opts)
     bucket_obj = s3_resource.bucket(bucket_name).object(key)
     bucket_obj.upload_file(file.path, **opts)
-    
+
     return {
       checksum: bucket_obj.etag
     }
@@ -73,6 +73,7 @@ class CloudStorageInterface::AwsS3Interface
     formatted_objects = response_objects.contents.map do |obj|
       {
         key: obj.key,
+        content_type: obj.content_type,
         last_modified: obj.last_modified,
       }
     end
@@ -93,6 +94,12 @@ class CloudStorageInterface::AwsS3Interface
       fields: response.fields,
       url:    { host: URI.parse(response.url).host }
     }
+  end
+
+  # return all the object properties.
+  # REFER HERE https://docs.aws.amazon.com/sdkforruby/api/Aws/S3/Object.html
+  def object_details(bucket_name:, key:)
+    s3_client.get_object(bucket: bucket_name, key: key).to_h
   end
 
 end
