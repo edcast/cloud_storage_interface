@@ -52,7 +52,7 @@ class CloudStorageInterface::GcpGcsInterface
       get_bucket!(bucket_name, **opts).files(prefix: prefix).map do |f|
         {
           key: f.name,
-          content_type: obj.content_type,
+          content_type: f.content_type,
           last_modified: f.updated_at
         }
       end
