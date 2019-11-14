@@ -48,8 +48,8 @@ class CloudStorageInterface::GcpGcsInterface
       !!get_bucket!(bucket_name).file(key)
     end
 
-    def list_objects(bucket_name:, **opts)
-      get_bucket!(bucket_name, **opts).files.map do |f|
+    def list_objects(bucket_name:, prefix: "", **opts)
+      get_bucket!(bucket_name, **opts).files(prefix: prefix).map do |f|
         {
           key: f.name,
           content_type: obj.content_type,
