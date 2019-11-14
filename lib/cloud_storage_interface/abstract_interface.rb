@@ -78,4 +78,13 @@ class CloudStorageInterface::AbstractInterface
   #   { fields: <object>, url: <string> }
   def presigned_post(bucket_name:, key:, **opts); end
 
+  # REQUIRED TO OVERRIDE
+  # =====================
+  # PARAMS
+  # bucket_name:
+    # Name of bucket
+  # key:
+    # Key name of the file
+  # RETURNS <struct>
+  def object_details(bucket_name: ,key:); end
 end
