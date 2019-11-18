@@ -46,7 +46,7 @@ class CloudStorageInterface::AwsS3Interface
 
   # returns true or false
   def download_file(bucket_name:, key:, local_path:)
-    s3_resource.bucket(bucket).object(key).download_file(local_path)
+    s3_resource.bucket(bucket_name).object(key).download_file(local_path)
   end
 
   # Note, expires_in cannot be more than 1 week due to S3 restrictions
