@@ -34,7 +34,7 @@ class CloudStorageInterface::GcpGcsInterface
       File.exists?(local_path) # emulating the return val of the S3 API
     end
 
-    def presigned_url(bucket_name:, key:, expires_in:)
+    def presigned_url(bucket_name:, key:, expires_in:, response_content_type:)
       get_object!(bucket_name, key).signed_url(expires: expires_in)
     end
 

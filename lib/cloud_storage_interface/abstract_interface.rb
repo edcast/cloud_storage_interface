@@ -32,7 +32,7 @@ class CloudStorageInterface::AbstractInterface
   #   expires_in is given in seconds and cannot be more than 1 week
   #   (due to S3 limitations)
   # RETURNS <string>
-  def presigned_url(bucket_name:, key:, expires_in:); end
+  def presigned_url(bucket_name:, key:, expires_in:, response_content_type:); end
 
   # REQUIRED TO OVERRIDE
   # =====================
