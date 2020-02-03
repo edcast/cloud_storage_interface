@@ -46,14 +46,15 @@ class AwsS3FileUploaderTest < ActiveSupport::TestCase
 
   def test_presigned_url
     expires_in = 10.minutes.to_i
-    stub_url = "http://foo.bar"
-    
+    stub_url = "http://foo.bar.csv"
+
     result = @inst.presigned_url(
       bucket_name: @bucket_name,
       key: @key,
-      expires_in: expires_in
+      expires_in: expires_in,
+      response_content_type: 'application/csv'
     )
-    
+
     path, params_str = result.split("?")
     params = CGI.parse params_str
 
@@ -82,7 +83,7 @@ class AwsS3FileUploaderTest < ActiveSupport::TestCase
         last_modified: times[idx]
       )
     end
-    
+
     @inst.s3_client.
       expects(:list_objects).
       with(bucket: @bucket_name, **opts).

@@ -50,12 +50,13 @@ class CloudStorageInterface::AwsS3Interface
   end
 
   # Note, expires_in cannot be more than 1 week due to S3 restrictions
-  def presigned_url(bucket_name:, key:, expires_in:)
+  def presigned_url(bucket_name:, key:, expires_in:, response_content_type:)
     signer = Aws::S3::Presigner.new(client: @s3_client)
     signer.presigned_url(:get_object, {
       bucket: bucket_name,
       key: key,
-      expires_in: expires_in
+      expires_in: expires_in,
+      response_content_type: response_content_type
     })
   end
 
