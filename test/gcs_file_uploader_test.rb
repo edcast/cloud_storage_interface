@@ -4,7 +4,7 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
 
   def setup
     @class = CloudStorageInterface::GcpGcsInterface
-    
+
     # Need to mock out Google::Cloud::Storage.new so we can instantiate a client
     @stub_gcs_client = mock
     Google::Cloud::Storage.stubs(:new).with(
@@ -38,7 +38,7 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
   def test_upload_file
     @stub_bucket.
       expects(:create_file).
-      with(@file_path, @key).
+      with(@file_path, @key, multipart_threshold: 100.megabytes).
       returns OpenStruct.new(crc32c: "foo")
 
     result = @inst.upload_file(
@@ -52,7 +52,7 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
   end
 
   def test_presigned_url
-    stub_url = "http://fake.presigned.url"
+    stub_url = "http://fake.presigned.csv"
     expires_in = 10.minutes.to_i
     @stub_obj_list = %w{a b}.map { |key| OpenStruct.new(key: key) }
     @stub_obj.expects(:signed_url).with(expires: expires_in).returns stub_url
@@ -60,7 +60,8 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
     assert_equal stub_url, @inst.presigned_url(
       bucket_name: @bucket_name,
       key: @key,
-      expires_in: expires_in
+      expires_in: expires_in,
+      response_content_type: 'application/csv'
     )
   end
 
@@ -90,7 +91,7 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
       returns(stub_objs)
 
     expected = stub_objs.map.with_index do |obj, idx|
-      { key: obj.name, last_modified: times[idx] }
+      { key: obj.name, content_type: nil, last_modified: times[idx] }
     end
 
     assert_equal expected, @inst.list_objects(
@@ -148,7 +149,7 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
       acl: acl,
       success_action_status: success_action_status
     )
-    
+
     assert_equal expected, actual
   end
 end
