@@ -134,6 +134,9 @@ List of public methods can be found [here](https://github.com/edcast/cloud_stora
 
 Implementation details can be found linked github page.
 
+# How to contribute?
+Add required methods in both interfaces or supported interfaces and bump up the version. Next run `/.reinstall` to make it available to consume in RoR apps.
+
 ## Future work:
 Support more public methods as when new need arise. If you plan to support Azure, Digital Ocean or any other cloud platform which not supported by this gem, can be extended very easily.
 
