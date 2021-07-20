@@ -106,4 +106,17 @@ class CloudStorageInterface::AwsS3Interface
     s3_client.get_object(bucket: bucket_name, key: key).to_h
   end
 
+  # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Object.html#move_to-instance_method
+  def move_file_within_bucket(bucket_name:, source_key:, destination_key:)
+    s3_resource.bucket(bucket_name).object(source_key).move_to(
+      bucket: bucket_name, key: destination_key
+    )
+  end
+
+  # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Object.html#copy_to-instance_method
+  def copy_file_within_bucket(bucket_name:, source_key:, destination_key:)
+    s3_resource.bucket(bucket_name).object(source_key).copy_to(
+      bucket: bucket_name, key: destination_key
+    )
+  end
 end
