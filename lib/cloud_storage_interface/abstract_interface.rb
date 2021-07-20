@@ -87,4 +87,28 @@ class CloudStorageInterface::AbstractInterface
     # Key name of the file
   # RETURNS <struct>
   def object_details(bucket_name: ,key:); end
+
+  # REQUIRED TO OVERRIDE
+  # =====================
+  # PARAMS
+  # bucket_name:
+    # Name of bucket
+  # source_key:
+    # Key name of the source file
+  # destination_key:
+    # Key name of the destination file
+  # RETURNS <object>
+  def move_file_within_bucket(bucket_name:, source_key:, destination_key:); end
+
+  # REQUIRED TO OVERRIDE
+  # =====================
+  # PARAMS
+  # bucket_name:
+    # Name of bucket
+  # source_key:
+    # Key name of the source file
+  # destination_key:
+    # Key name of the destination file
+  # RETURNS <object>
+  def copy_file_within_bucket(bucket_name:, source_key:, destination_key:); end
 end
