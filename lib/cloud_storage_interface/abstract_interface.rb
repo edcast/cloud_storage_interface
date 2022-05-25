@@ -60,7 +60,7 @@ class CloudStorageInterface::AbstractInterface
   # RETURNS:
   #   List of <object>s
   #   where <object> = { key: <string> }
-  def list_objects(bucket_name:, **opts); end
+  def list_objects(bucket_name:, fetch_object_content_type: false, **opts); end
 
   # REQUIRED TO OVERRIDE
   # =====================
