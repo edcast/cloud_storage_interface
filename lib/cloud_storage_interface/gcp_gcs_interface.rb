@@ -35,7 +35,7 @@ class CloudStorageInterface::GcpGcsInterface
     end
 
     def presigned_url(bucket_name:, key:, expires_in:, response_content_type:)
-      get_object!(bucket_name, key).signed_url(expires: expires_in)
+      get_object!(bucket_name, key, skip_lookup: true).signed_url(expires: expires_in)
     end
 
     def delete_file!(bucket_name:, key:)
