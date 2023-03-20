@@ -88,7 +88,7 @@ class CloudStorageInterface::GcpGcsInterface
       # Wierd inconsistency between S3 and GCS APIs.
       # GCS escapes ${filename} in the key before returning it in the fields.
       # We need to manually unescape it.
-      post_obj.fields[:key] = URI.unescape(post_obj.fields[:key])
+      post_obj.fields[:key] = URI.decode_www_form_component(post_obj.fields[:key])
 
       # Have to manually merge in these fields
       fields = post_obj.fields.merge(
