@@ -1,0 +1,15 @@
+sudo: required
+dist: bionic
+language: ruby
+cache: bundler
+rvm:
+  - 2.7.7
+branches:
+  only:
+  - master
+script:
+- RAILS_ENV=test ./run_tests
+before_install:
+  - gem install bundler -v 2.4.3
+  - bundle install
+  - gem build cloud_storage_interface.gemspec
