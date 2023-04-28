@@ -25,7 +25,7 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
     @stub_bucket = mock
     @stub_obj = mock
 
-    @inst.gcs_client.stubs(:bucket).with(@bucket_name).returns @stub_bucket
+    @inst.gcs_client.stubs(:bucket).with(@bucket_name).returns(@stub_bucket)
     @inst.gcs_client.stubs(:bucket).with(@bucket_name, prefix: @prefix).returns @stub_bucket
     @inst.gcs_client.stubs(:bucket).with(@bucket_name, skip_lookup: @skip_lookup).returns @stub_bucket
     @file.stubs(:path).returns @file_path
