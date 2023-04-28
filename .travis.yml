@@ -6,9 +6,8 @@ rvm:
 branches:
   only:
   - master
-before_script:
-  - gem install bundler -v 2.4.3
 script:
   - RAILS_ENV=test ./run_tests
 before_install:
+  - gem install bundler -v 2.4.3
   - gem build cloud_storage_interface.gemspec
