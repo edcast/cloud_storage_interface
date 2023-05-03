@@ -1,3 +1,3 @@
 module CloudStorageInterface
-  VERSION = '0.0.32'
+  VERSION = '1.0.0'
 end
