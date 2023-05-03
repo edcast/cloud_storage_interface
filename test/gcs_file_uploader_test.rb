@@ -19,13 +19,15 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
     @other_key = "asd"
     @file_path = "/fake.txt"
     @prefix = "pre"
+    @skip_lookup = true
 
     @file = mock
     @stub_bucket = mock
     @stub_obj = mock
 
-    @inst.gcs_client.stubs(:bucket).with(@bucket_name, {}).returns @stub_bucket
+    @inst.gcs_client.stubs(:bucket).with(@bucket_name).returns @stub_bucket
     @inst.gcs_client.stubs(:bucket).with(@bucket_name, prefix: @prefix).returns @stub_bucket
+    @inst.gcs_client.stubs(:bucket).with(@bucket_name, skip_lookup: @skip_lookup).returns @stub_bucket
     @file.stubs(:path).returns @file_path
     @stub_bucket.stubs(:file).with(@key).returns @stub_obj
     @stub_bucket.stubs(:file).with(@other_key).returns nil
@@ -55,7 +57,7 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
     stub_url = "http://fake.presigned.csv"
     expires_in = 10.minutes.to_i
     @stub_obj_list = %w{a b}.map { |key| OpenStruct.new(key: key) }
-    @stub_obj.expects(:signed_url).with(expires: expires_in).returns stub_url
+    @stub_bucket.expects(:signed_url).with(@key, expires: expires_in).returns stub_url
 
     assert_equal stub_url, @inst.presigned_url(
       bucket_name: @bucket_name,
