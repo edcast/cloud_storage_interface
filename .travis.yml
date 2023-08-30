@@ -2,7 +2,7 @@ sudo: required
 dist: bionic
 language: ruby
 rvm:
-  - 2.7.7
+  - 3.2.2
 branches:
   only:
   - master
