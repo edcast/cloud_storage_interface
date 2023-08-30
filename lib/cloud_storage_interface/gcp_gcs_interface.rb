@@ -31,7 +31,7 @@ class CloudStorageInterface::GcpGcsInterface
 
     def download_file(bucket_name:, key:, local_path:)
       get_object!(bucket_name, key).download(local_path)
-      File.exists?(local_path) # emulating the return val of the S3 API
+      File.exist?(local_path) # emulating the return val of the S3 API
     end
 
     def presigned_url(bucket_name:, key:, expires_in:, response_content_type:)
