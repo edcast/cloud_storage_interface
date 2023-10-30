@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["edcast"]
   s.email       = 'mp@edcast.com'
-  s.required_ruby_version = '~> 3.0.5'
+  s.required_ruby_version = '~> 3.0.6'
   s.homepage    = "http://rubygems.org/gems/cloud_storage_interface"
   s.files       = Dir["lib/**/*.rb", "bin/*", "**/*.md", "LICENSE"]
   s.require_path = 'lib'
