@@ -17,12 +17,12 @@ class CloudStorageInterfaceTest < ActiveSupport::TestCase
     text = "foo\nbar"
     path = nil
     test_blk = -> (file) do
-      assert File.exists?(file.path)
+      assert File.exist?(file.path)
       path = file.path
       assert_equal text, File.read(file)
     end
     CloudStorageInterface.with_tempfile(text, &test_blk)
-    refute File.exists? path
+    refute File.exist? path
   end
 
 end
