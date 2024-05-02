@@ -8,16 +8,16 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["edcast"]
   s.email       = 'mp@edcast.com'
-  s.required_ruby_version = '>= 3.0.6'
+  s.required_ruby_version = '~> 3.0.7'
   s.homepage    = "http://rubygems.org/gems/cloud_storage_interface"
   s.files       = Dir["lib/**/*.rb", "bin/*", "**/*.md", "LICENSE"]
   s.require_path = 'lib'
   s.required_rubygems_version = ">= 2.7.6"
   s.executables = Dir["bin/*"].map &File.method(:basename)
+  s.add_dependency('activesupport', '~> 6.1.7.7')
   s.add_dependency('aws-sdk-s3', '~> 1')
-  s.add_dependency('google-cloud-storage', '1.31.0')
-  s.add_dependency('activesupport', '~> 6.1.7.3')
-  s.add_development_dependency('mocha', '~> 1.0.0')
-  s.add_development_dependency('byebug', '~> 11.0.1')
+  s.add_development_dependency('byebug', '~> 11.1.3')
+  s.add_dependency('google-cloud-storage', '~> 1.18.2')
+  s.add_development_dependency('mocha', '~> 2.2.0')
   s.license     = 'MIT'
 end
