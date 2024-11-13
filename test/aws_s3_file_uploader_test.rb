@@ -11,6 +11,8 @@ class AwsS3FileUploaderTest < ActiveSupport::TestCase
 
     @bucket_name = "foo"
     @key = "bar"
+    @content_type = "image/png"
+    @content_length = 12345
     @checksum = "1234"
     @file_path = "/fake.txt"
 
@@ -23,6 +25,9 @@ class AwsS3FileUploaderTest < ActiveSupport::TestCase
     @inst.s3_resource.stubs(:bucket).with(@bucket_name).returns @stub_bucket
     @stub_bucket.stubs(:object).with(@key).returns @stub_obj
     @stub_obj.stubs(:etag).returns @checksum
+    @stub_obj.stubs(:key).returns @key
+    @stub_obj.stubs(:content_type).returns @content_type
+    @stub_obj.stubs(:content_length).returns @content_length
   end
 
   def test_initialize
@@ -41,7 +46,8 @@ class AwsS3FileUploaderTest < ActiveSupport::TestCase
       file: @file,
       **opts
     )
-    assert_equal({checksum: @checksum}, result)
+
+    assert_equal({ checksum: '1234', etag: '1234', key: 'bar', mime_type: 'image/png', size: 12345 }, result)
   end
 
   def test_presigned_url
