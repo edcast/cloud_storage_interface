@@ -40,7 +40,11 @@ class CloudStorageInterface::AwsS3Interface
     bucket_obj.upload_file(file.path, **opts)
 
     return {
-      checksum: bucket_obj.etag
+      checksum: bucket_obj.etag,
+      etag: bucket_obj.etag,
+      key: bucket_obj.key,
+      mime_type: bucket_obj.content_type,
+      size: bucket_obj.content_length
     }
   end
 

@@ -24,8 +24,13 @@ class CloudStorageInterface::GcpGcsInterface
       end
 
       result = get_bucket!(bucket_name).create_file file.path, key, **opts
+
       return {
-        checksum: result.crc32c
+        checksum: result.crc32c,
+        etag: result.etag,
+        key: result.name,
+        mime_type: result.content_type,
+        size: result.size
       }
     end
 

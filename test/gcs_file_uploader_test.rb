@@ -16,6 +16,8 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
 
     @bucket_name = "foo"
     @key = "bar"
+    @content_type = "image/png"
+    @size = 12345
     @other_key = "asd"
     @file_path = "/fake.txt"
     @prefix = "pre"
@@ -41,7 +43,7 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
     @stub_bucket.
       expects(:create_file).
       with(@file_path, @key, multipart_threshold: 100.megabytes).
-      returns OpenStruct.new(crc32c: "foo")
+      returns OpenStruct.new(crc32c: "foo", etag: "foo", name: @key, content_type: @content_type, size: @size)
 
     result = @inst.upload_file(
       bucket_name: @bucket_name,
@@ -50,7 +52,7 @@ class GcsFileUploaderTest < ActiveSupport::TestCase
       multipart_threshold: 100.megabytes # This option is ignored for GCS
     )
 
-    assert_equal({checksum: "foo"}, result)
+    assert_equal({ checksum: 'foo', etag: 'foo', key: 'bar', mime_type: 'image/png', size: 12345 }, result)
   end
 
   def test_presigned_url
