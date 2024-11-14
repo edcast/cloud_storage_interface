@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cloud_storage_interface (1.0.0)
+    cloud_storage_interface (2.3.0)
       activesupport (~> 7.0.8)
       aws-sdk-s3 (~> 1)
       google-cloud-storage (= 1.31.0)
